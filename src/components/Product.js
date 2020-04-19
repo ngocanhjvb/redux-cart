@@ -1,11 +1,14 @@
 import React from 'react';
+import * as message from '../constants/Messages'
 
 
 class Product extends React.Component {
 
     onAddToCart = (product) => {
         this.props.onAddToCart(product)
+        this.props.actChangeMessage(message.MSG_ADD_TO_CART_SUCCESS)
     }
+
 
     showRating = (rating) => {
         let result = []
