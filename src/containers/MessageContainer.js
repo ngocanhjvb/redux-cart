@@ -15,7 +15,7 @@ class MessageContainer extends React.Component {
 }
 
 MessageContainer.propTypes = {
-    message: PropTypes.string.isRequired
+    message: PropTypes.array.isRequired
 };
 
 

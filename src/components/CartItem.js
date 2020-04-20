@@ -6,6 +6,10 @@ class CartItem extends React.Component {
         return price * quantity;
     }
 
+    onActDeleteProductInCart = (product) => {
+        this.props.actDeleteProductInCart(product)
+    }
+
     render() {
         var {cartItem} = this.props
         return (
@@ -37,6 +41,7 @@ class CartItem extends React.Component {
                 <td>{this.subTotalPrice(cartItem.product.price, cartItem.quantity)}$</td>
                 <td>
                     <button type="button"
+                            onClick={this.onActDeleteProductInCart.bind(this, cartItem.product)}
                             className="btn btn-sm btn-primary waves-effect waves-light"
                             data-toggle="tooltip" data-placement="top"
                             title="" data-original-title="Remove item">
