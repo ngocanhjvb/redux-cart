@@ -5,7 +5,7 @@ import Cart from "../components/Cart";
 import CartItem from "../components/CartItem";
 import * as message from "../constants/Messages"
 import CartResult from "../components/CartResult";
-import {actDeleteProductInCart} from "../actions";
+import {actChangeMessage, actDeleteProductInCart, actUpdateProductInCart} from "../actions";
 
 class CartContainer extends React.Component {
 
@@ -13,9 +13,15 @@ class CartContainer extends React.Component {
         let result = <tr>
             <th>{message.MSG_CART_EMPTY}</th>
         </tr>
+        let {actDeleteProductInCart, actChangeMessage, actUpdateProductInCart} = this.props;
         if (cart.length > 0) {
             result = cart.map((cartItem, index) => {
-                return <CartItem actDeleteProductInCart={this.props.actDeleteProductInCart} key={index} cartItem={cartItem}/>
+                return <CartItem
+                    actDeleteProductInCart={actDeleteProductInCart}
+                    actChangeMessage={actChangeMessage}
+                    actUpdateProductInCart={actUpdateProductInCart}
+                    key={index}
+                    cartItem={cartItem}/>
             })
         }
         return result;
@@ -46,7 +52,10 @@ CartContainer.propTypes = {
             product: PropTypes.object.isRequired,
             quantity: PropTypes.number.isRequired,
         })
-    ).isRequired
+    ).isRequired,
+    actChangeMessage : PropTypes.func.isRequired,
+    actDeleteProductInCart : PropTypes.func.isRequired,
+    actUpdateProductInCart : PropTypes.func.isRequired
 };
 
 
@@ -60,7 +69,13 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         actDeleteProductInCart: (product) => {
             dispatch(actDeleteProductInCart(product));
-        }
+        },
+        actChangeMessage: (message) => {
+            dispatch(actChangeMessage(message))
+        },
+        actUpdateProductInCart: (product, quantity) => {
+            dispatch(actUpdateProductInCart(product, quantity));
+        },
     }
 }
 

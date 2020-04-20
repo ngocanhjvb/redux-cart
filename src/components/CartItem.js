@@ -1,4 +1,5 @@
 import React from 'react';
+import * as message from '../constants/Messages'
 
 
 class CartItem extends React.Component {
@@ -7,7 +8,17 @@ class CartItem extends React.Component {
     }
 
     onActDeleteProductInCart = (product) => {
-        this.props.actDeleteProductInCart(product)
+        let {actDeleteProductInCart, actChangeMessage} = this.props;
+        actDeleteProductInCart(product)
+        actChangeMessage(message.MSG_DELETE_PRODUCT_IN_CART_SUCCESS)
+    }
+
+    onUpdateQuantity = (product, quantity) => {
+        let {actUpdateProductInCart, actChangeMessage} = this.props;
+        if (quantity > 0) {
+            actUpdateProductInCart(product,quantity)
+            actChangeMessage(message.MSG_UPDATE_CART_SUCCESS)
+        }
     }
 
     render() {
@@ -29,11 +40,13 @@ class CartItem extends React.Component {
                     <span className="qty">{cartItem.quantity} </span>
                     <div className="btn-group radio-group" data-toggle="buttons">
                         <label className="btn btn-sm btn-primary
-                                                btn-rounded waves-effect waves-light">
+                                                btn-rounded waves-effect waves-light"
+                               onClick={() => this.onUpdateQuantity(cartItem.product, cartItem.quantity - 1)}>
                             <a>—</a>
                         </label>
                         <label className="btn btn-sm btn-primary
-                                                btn-rounded waves-effect waves-light">
+                                                btn-rounded waves-effect waves-light"
+                               onClick={() => this.onUpdateQuantity(cartItem.product, cartItem.quantity + 1)}>
                             <a>+</a>
                         </label>
                     </div>

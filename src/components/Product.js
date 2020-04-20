@@ -1,12 +1,18 @@
 import React from 'react';
 import * as message from '../constants/Messages'
+var _ = require('lodash');
 
 
 class Product extends React.Component {
 
     onAddToCart = (product) => {
+        var index = _.findIndex(this.props.cart, ['product', product]);
         this.props.onAddToCart(product)
-        this.props.actChangeMessage(message.MSG_ADD_TO_CART_SUCCESS)
+        if(index !== -1){
+            this.props.actChangeMessage(message.MSG_UPDATE_CART_SUCCESS)
+        }else {
+            this.props.actChangeMessage(message.MSG_ADD_TO_CART_SUCCESS)
+        }
     }
 
 

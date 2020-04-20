@@ -13,6 +13,7 @@ class ProductsContainer extends React.Component {
                 return <Product
                     key={index}
                     product={product}
+                    cart={this.props.cart}
                     onAddToCart={this.props.onAddToCart}
                     actChangeMessage={this.props.actChangeMessage}
                 />
@@ -47,7 +48,8 @@ ProductsContainer.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        products: state.products
+        products: state.products,
+        cart: state.cart
     }
 }
 
