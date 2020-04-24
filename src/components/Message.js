@@ -1,19 +1,29 @@
 import React from 'react';
-import {CSSTransition} from 'react-transition-group';
 
 class Message extends React.Component {
+
+    constructor() {
+        super()
+        this.state = {fadeClass: false};
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({
+            fadeClass: false
+        })
+        setTimeout(() => {
+            this.setState({
+                fadeClass: true
+            })
+        }, 2000)
+    }
+
+
     render() {
         return (
             <h3>
-                <CSSTransition
-                    in={true}
-                    appear={true}
-                    timeout={300}
-                    className="example"
-                >
-                    <span className="badge amber darken-2">{this.props.children}</span>
-                </CSSTransition>
-
+                <span
+                    className={this.state.fadeClass ? "badge amber darken-2 fadeMessage" : "badge amber darken-2"}>{this.props.children}</span>
             </h3>
         );
     }

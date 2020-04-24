@@ -14,10 +14,13 @@ class CartItem extends React.Component {
     }
 
     onUpdateQuantity = (product, quantity) => {
-        let {actUpdateProductInCart, actChangeMessage} = this.props;
+        let {actUpdateProductInCart, actChangeMessage, actDeleteProductInCart} = this.props;
         if (quantity > 0) {
-            actUpdateProductInCart(product,quantity)
+            actUpdateProductInCart(product, quantity)
             actChangeMessage(message.MSG_UPDATE_CART_SUCCESS)
+        } else {
+            actDeleteProductInCart(product)
+            actChangeMessage(message.MSG_DELETE_PRODUCT_IN_CART_SUCCESS)
         }
     }
 
